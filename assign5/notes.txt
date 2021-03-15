@@ -1,0 +1,96 @@
+Yili Liu
+205376049
+
+Notes on Assignment 5
+1. Get tar file by using command wget and open the tar file using
+   tar command.
+2. To make a command called 'make check', first I made a file called
+   test.sh that tests the randall binary. It exits with 0 if the
+   output of randall is the corret length. exits with 1 otherwise.
+3. Open up Makefile and add a command 'check'
+   call ./test.sh in this command, but before hand, make sure randall
+   is a prerequisite in the check command as the test.sh file uses the
+   compiled version of randall
+4. To start splitting up the program into separate files, take the
+   writebytes function into output.c. Then put the initalizer into
+   output.h
+5. Then, put the rdrand_supported and the cpiod struct into the file
+   options.c - also in options.c:
+   - write a function called read_options which takes in the input.
+   - in options.h, also write a struct called opts (for the options)
+     put the variables that we need to access from randall.c in the
+     struct (valid and nbytes)
+   - for the arguments of read_options, make them int argc,
+     char* argc[], and struct opts* opts
+   - then in the read_options function, paste in the code from
+     randall.c but make sure to change all the variables to be opts->
+   - In randall.c, make sure to change nbyte references to opts. too
+6. Then take hardware_rand64_init, hardware_rand64, and
+   hardware_rand64_fini and put it into rand64-hw.c and the appropiate
+   function declarations into the .h file
+7. Lastly, take FILE, software_rand64_init, software_rand64 and
+   software_rand64_fini and put them in rand64-sw.c
+8. Update the Makefile by replacing randall.c as the comiled file to
+   *.c and $@.c to *.c so that the program takes into account all of
+   the files when running make rather than just randall.c
+9. To start making an input -i option, make an enumeration that
+   contains the three type of inputs. Then, add this enum as a
+   variable in the struct opts along with a variable to track the file
+   name just in case that is the input
+10. Start by making sure inputs can be taken correctly. make a while
+    loop that loops until getopt returns -1. in getopts, make the
+    last argument ":i:" for now
+11. Then make a switch statement and check that if 'i', make if
+    statements checking whether the optarg after is rdrand, /, or
+    mrand48_r
+    If so, set opts->input equal to the that input and the file equal
+    to the file name if that was the input selected.
+12. To get it so that the user can choose between rdrand & mrand48_r,
+    in the if statement in rand.c that checks if rdrand is supported,
+    within, check that if input is equal to mrand48_r, set rand64 to
+    a new function called hardware_rand48
+13. In the rand64-hw.c/h files, add this file. Then add a new var
+    at the top called struct drand48_data buffer. this is needed
+    for the call to mrand48_r. Then initialize this by calling
+    srand48_r with time(NULL) and buffer's address as arguments
+14. In the newly created function, make a variable x. Then init it
+    by calling mrand48_r with arguements the address of buffer and
+    the address of x. Then return x. 
+15. Write a global variable for r_src, the file inputed by -i, and
+    pass it in in the initilization for sw instead of /dev/random
+16. for -o, in options.c, write another case in the switch statement
+    for 'o'. Under it, update the opts->output accordingly
+17. write a new function in output.c called writebyteblocks and use
+    malloc and write to output blocks rather than on bytes at a time
+18. In randall.c, udpate the do while loop to check for if output
+    is N, call the new function rather than writebytes.
+19. To move the bytes needed into the buffer, use memcpy to copy 8
+    bytes into the program at a time
+20. Make sure to free the buffer after the whole while loop is done
+
+My times:
+ time ./randall 133562368 >/dev/null
+      real	0m3.262s
+      user	0m3.249s
+      sys	0m0.012s
+ time ./randall 133562368 | cat >/dev/null
+      real	0m3.431s
+      user	0m3.409s
+      sys	0m0.191s
+ time ./randall 133562368 >rand.data
+      real	0m4.600s
+      user	0m3.228s
+      sys	0m0.187s
+
+I found that if I used -o N, my times were significantly lower, for example:
+ time ./randall -o 10 133562368 >/dev/null
+      real	0m2.096s
+      user	0m1.983s
+      sys	0m0.113s
+
+Combining this with /dev/urandom gave me even quicker results:
+ time ./randall -i /dev/urandom  -o 10 133562368 >/dev/null
+      real	0m1.445s
+      user	0m0.471s
+      sys	0m0.974s
+

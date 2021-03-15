@@ -1,0 +1,35 @@
+#!/bin/bash
+
+# Remove all HTML tags 
+    sed -e 's/<[^>]*>//g' |
+# Replace all left over < and > with spaces
+    tr '<' ' ' |
+    tr '>' ' ' |
+# Remove blank lines
+    grep . |
+# Remove all punctuation that is not present in the dictionary
+    tr ":" " " |
+    tr ";" " " |
+    tr "(" " " |
+    tr ")" " " |
+    tr "=" " " |
+    tr "&" " " |
+    tr "#" " " |
+    tr "[" " " |
+    tr "]" " " |
+    tr "{" " " |
+    tr "}" " " |
+    tr "?" " " |
+    tr "|" " " |
+    tr "$" " " |
+    tr '"' ' ' |
+    tr '_' ' ' |
+    tr '+' ' ' |
+# Put each new word on its own line
+    tr " "  "\n" |
+# Delete commas at the end of words
+    sed 's/,$//g' |
+# Sort and delete duplicates
+    sort -u |
+# Compare to sorted.words
+    comm -23 - sorted.words | grep .

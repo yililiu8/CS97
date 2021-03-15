@@ -1,0 +1,19 @@
+First, I used the statement:
+       git grep "Even newspaper reports present contradictory information." `git show-ref --heads` 
+       This statement found any instances of the phrase in the repository.
+       This returned:
+       beba17f43925823308c6f7f0d5ca9b52d00d351f:northamerica:# and wrote "Even newspaper reports present contradictory information."
+       refs/heads/master:northamerica:# and wrote "Even newspaper reports present contradictory information."
+       Meaning there were references found in the repository and that they were       in the master branch, in the file "northamerica". 
+
+I then investigated further, using:
+  git grep -n "Even newspaper reports present contradictory information." $(git rev-list --all)
+  this showed me the exact line number that this phrase was written on: 890 
+
+I then went to the file northamerica with the command 'emacs northamerica'
+I then used the command C-s to search for the sentence "Even newspaper reports
+  present contradictory information". Sure enough, the sentence was on line 890  as my search had told me
+From reading the paragraphs before and after the statement, I conclude that
+although the line is not cited in a very clear way, the contributor did indeed
+copy the statemenet word for word and give credit to Shanks, the person who
+wrote the statement originally. 

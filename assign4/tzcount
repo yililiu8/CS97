@@ -1,0 +1,8 @@
+#!/bin/bash
+
+grep -E '^Date' |
+tr " "  "\n" |
+grep -P '[+-]\d{4}' |
+sed 's/^[^+-].*//g' |
+sed 's/\.$//g' |
+grep . | sort -n | uniq -c | awk '{print $2" "$1}'

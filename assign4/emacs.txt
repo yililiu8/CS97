@@ -1,0 +1,32 @@
+Yili Liu
+205376049
+
+1. When I searched up the merge point, there were 5 views on X11. The top left
+   one shows that the mergepoint was a merge from origin/emacs-27,with it's child
+   and parents shows above and below it with arrows. This top left view was a
+   graphical visual of all the commits/merge points. The middle top box shows who
+   merged: Glenn Morris and their email and the last window on the top right
+   shows it was merged on 2020-10-17 09:48:54. On the bottom left, it shows
+   a box with the author/commiter again along with the parent and what was
+   commit and the child and what was committed. This box also shows the
+   branches: master, remotes/oring.feature/native-comp, and remotes/origin/master
+   It also shows the Follows and the Precentes along with the merge comment:
+   Impove documentation of 'Info-hide-note...' The bottom right has another box
+   with the label comments, but it is empty as I am looking at it.
+3. One difference between the GNU emacs repository and the one on SEAS is that
+   the GNU one is more up-to-date as the GNU emacs's last commit was from Nov 11
+   whereas the latest commit from the one on emacs is from Nov 3. Also, when using
+   git branch on the SEAS version, A list of many branches including features and
+   different versions of emacs. On the GNU versions, there is only one local
+   branch, the master. All of the other branches are actually remote branches,
+   found through the command git branch -a. They are the same as the branches on
+   the SEAS version but with 'remotes/origin/' in the begining of the name of all
+   the listed branches. Therefore, the main difference between the two is that
+   while all branches are local on the SEAS version, almost all branches are
+   remote-tracking branches (local copies of the remote branch). 
+
+Notes about assignment in general:
+- I did the assignment on Nov. 10/11 and since then, there might have been
+  additional commits on the tz repository. Some of my first files show the most
+  recent commit but from Nov. 11 rather than later since there might have been
+  more recent commits since then. 

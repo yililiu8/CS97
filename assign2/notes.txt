@@ -1,0 +1,11 @@
+Yili Liu
+
+Exercise 2.1 Answers/Notes
+- (2 ** (3**4)) = 2417851639229258349412352, does not fit into 64-bit signed integer
+- C-h k Displays documentation of the function invoked by KEY-LIST. KEY-LIST can be any kind of a key sequence; it can include keyboard events, mouse events, and/or menu events. It takes into account what keys you click when spitting out a help manual. Uses describe-key 
+- M-SPC Deletes all spaces and tabs around point, leaving one space (or N spaces). If N is negative, deletes newlines as well, leaving -N spaces. Uses key just-one-space
+
+Python Scripting Answers
+- When involved on an empty file, randline.py prints out the error: IndexError: list index out of range
+- When using Python3, it gives a syntax error on line 65 except IOError as (errno, strerror): and says there is an invalid syntax this is because python3 does not follow this syntax anymore and no longer allows the tuple to be iterated over.
+- When invoking shuf.py with python2, it runs the same as python3 because I did not use anything specific to python3
